@@ -5,13 +5,12 @@ package overseer
 import (
 	"errors"
 	"fmt"
+	"github.com/xxiiaass/overseer/fetcher"
 	"log"
 	"net"
 	"os"
 	"runtime"
 	"time"
-
-	"github.com/jpillora/overseer/fetcher"
 )
 
 const (
