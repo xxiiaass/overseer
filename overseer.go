@@ -79,7 +79,7 @@ type Config struct {
 
 func validate(c *Config) error {
 	//validate
-	if c.Program == nil {
+	if c.Program == nil && c.Grace == nil {
 		return errors.New("overseer.Config.Program required")
 	}
 	if c.Address != "" {
