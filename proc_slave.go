@@ -125,6 +125,14 @@ func (sp *slave) watchSignal() {
 		close(sp.state.GracefulShutdown)
 		//release any sockets and notify master
 		sp.Grace.OnOver()
+
+		//signal release of held sockets, allows master to start
+		//a new process before this child has actually exited.
+		//early restarts not supported with restarts disabled.
+		if !sp.Config.NoRestart {
+			sp.masterProc.Signal(SIGUSR1)
+		}
+		//listeners should be waiting on connections to close...
 		//start death-timer
 		go func() {
 			time.Sleep(sp.Config.TerminateTimeout)
